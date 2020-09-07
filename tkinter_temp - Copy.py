@@ -1,18 +1,19 @@
 import tkinter
 from tkinter import *
+import about
 root=tkinter.Tk()
 var=''
+hist=''
 BR="#d3d3d3"
 FR="#000000"
-DBR="#FFFFFF"#"#b0e0e6"
+DBR="#FFFFFF"
 DFR="#000000"
-HBR="#87CEEB"
+HBR="#4169E6"
 HFR="#ffffff"
 B=0
 flag=False
 f=True
-def about():
-    root1=tkinter.Tk()
+
 def change():
     global flag
     global BR
@@ -24,9 +25,9 @@ def change():
     if flag:
         BR="#d3d3d3"
         FR="#000000"
-        DBR="#FFFFFF"#"#b0e0e6"
+        DBR="#FFFFFF"
         DFR="#000000"
-        HBR="#87CEEB"
+        HBR="#4169E6"
         HFR="#ffffff"
         invert_colours()
         flag=False
@@ -132,18 +133,23 @@ def invert_colours():
     entry_1.config(
     background = DBR,
     fg = DFR,)
-    frame_1.config(
-    background = DBR,)
+    label_2.config(
+    background = DBR,
+    fg = DFR,)
+    label.config(
+    background = DBR,
+    fg = DFR,)
+    
 def entered1(event):
     button_1.config(
         background = HBR,
-        fg = HFR)
+        fg = HFR,)
 
 
 def leave1(event):
     button_1.config(
         background = BR,
-        fg = FR)
+        fg = FR,)
 
 
 def entered2(event):
@@ -216,189 +222,128 @@ def leave7(event):
     button_7.config(
         background = BR,
         fg = FR)
-        
-
 def entered8(event):
     button_8.config(
         background = HBR,
         fg = HFR)
-        
-
 def leave8(event):
     button_8.config(
         background = BR,
         fg = FR)
-        
-
 def entered9(event):
     button_9.config(
         background = HBR,
         fg = HFR)
-        
-
 def leave9(event):
     button_9.config(
         background = BR,
         fg = FR)
-        
-
 def entered0(event):
     button_0.config(
         background = HBR,
         fg = HFR)
-        
-
 def leave0(event):
     button_0.config(
         background = BR,
         fg = FR)
-        
-
 def entered_(event):
     button_.config(
         background = HBR,
         fg = HFR)
-        
-
 def leave_(event):
     button_.config(
         background = BR,
         fg = FR)
-        
-
 def enteredplus(event):
     button_plus.config(
         background = HBR,
         fg = HFR)
-        
-
 def leaveplus(event):
     button_plus.config(
         background = BR,
         fg = FR)
-        
-
 def enteredminus(event):
     button_minus.config(
         background = HBR,
         fg = HFR)
-        
-
 def leaveminus(event):
     button_minus.config(
         background = BR,
         fg = FR)
-        
-
 def enteredphoto(event):
     button_photo.config(
         background = HBR,)
-
-
 def leavephoto(event):
     button_photo.config(
         background = BR,)
-
-
 def enteredsquare(event):
     button_square.config(
         background = HBR,
         fg = HFR)
-        
-
 def leavesquare(event):
     button_square.config(
         background = BR,
         fg = FR)
-        
-
 def enteredmul(event):
     button_mul.config(
         background = HBR,
         fg = HFR)
-        
-
 def leavemul(event):
     button_mul.config(
         background = BR,
         fg = FR)
-        
-
 def enterede(event):
     button_e.config(
         background = HBR,
         fg = HFR)
-        
-
 def leavee(event):
         button_e.config(
         background = BR,
         fg = FR)
-        
-
 def enteredc(event):
     button_c.config(
         background = HBR,
         fg = HFR)
-        
-
 def leavec(event):
     button_c.config(
         background = BR,
         fg = FR)
-        
-
 def enteredpm(event):
     button_pm.config(
         background = HBR,
         fg = HFR)
-        
-
 def leavepm(event):
     button_pm.config(
         background = BR,
         fg = FR)
-        
-
 def enteredp(event):
     button_p.config(
         background = HBR,
         fg = HFR)
-        
-
 def leavep(event):
     button_p.config(
         background = BR,
         fg = FR)
-        
-
 def enteredu(event):
     button_u.config(
         background = HBR,
         fg = HFR)
-        
-
 def leaveu(event):
     button_u.config(
         background = BR,
         fg = FR)
-        
-
 def entereddiv(event):
     button_div.config(
         background = HBR,
         fg = HFR)
-        
-
 def leavediv(event):
     button_div.config(
         background = BR,
         fg = FR)
-        
 def clicked1(v):
     global var
     if len(var) > 1:
-        if var[-1:] == "." and v == '.':
+        if var[-1] == "." and v == '.':
             pass
 
         elif var[-1] == "+":
@@ -505,8 +450,6 @@ def clicked1(v):
     else:
         var=var + v
     data.set(var)
-
-
 def clicked(v):
     global var
     if len(var) == 1 and var[0] == "0":
@@ -725,8 +668,6 @@ def clicked(v):
     else:
         var=var + v
     data.set(var)
-
-
 def pm():
     global var
     if len(var) == 0:
@@ -739,51 +680,40 @@ def pm():
     else:
         var="(-" + var + ")"
     data.set(var)
-
-
 def delete():
     global var
     var=var[:-1]
     data.set(var)
-
-
 def c():
     global var
     var=""
     data.set(var)
-
-
 def solve():
     global var
+    global hist
     try:
-        ans=eval(var)
+        hist=var
+        label.config(text=hist)
+        ans=eval(var)            
         ans=round(ans,4)
         var=str(ans)
+            
         if var[0] == "-":
             var="(" + var + ")"
         data.set(var)
-    except OverflowError:
-        data.set("Overflow")
+        
     except ZeroDivisionError:
         data.set("Can't Divide by Zero")
     except SyntaxError:
         data.set("Syntax Error")
     except:
         data.set("Invalid Input")
-
-
 def enterpress(event):
     solve()
-
-
-def click(event):        
+def click(event):
     clicked(event.char)
-
-
 def deleteclick(event):
     c()
-
-
 def backspace(event):
     delete()
 def resize():
@@ -795,12 +725,21 @@ def resize():
     else:
         root.resizable(0,0)
         f=True
-        
-root.geometry("300x470")
+
+def clicked_history(event):
+    global hist
+    global var
+    data.set(hist)
+    var=hist
+    hist=""
+    label.config(text=hist)
+    
+root.geometry("300x500")
 root.resizable(0,0)
 root.title("Calculator")
 icon=PhotoImage(file = "calculator.png")
 root.tk.call('wm','iconphoto',root._w,icon)
+root.bind('0',click)
 root.bind('<Return>',enterpress)
 root.bind('1',click)
 root.bind('2',click)
@@ -811,16 +750,13 @@ root.bind('6',click)
 root.bind('7',click)
 root.bind('8',click)
 root.bind('9',click)
-root.bind('0',click)
 root.bind('.',click)
 root.bind('*',click)
 root.bind('+',click)
 root.bind('-',click)
 root.bind('/',click)
 root.bind('<Delete>',deleteclick)
-root.bind('<BackSpace>',backspace)
-
-  
+root.bind('<BackSpace>',backspace)  
 menubar = Menu(root) 
   
 # Adding File Menu and commands 
@@ -842,7 +778,7 @@ edit.add_command(label ='Resize OR NOT', command = resize)
 # Adding Help Menu 
 help_ = Menu(menubar, tearoff = 0) 
 menubar.add_cascade(label ='Help', menu = help_) 
-help_.add_command(label ='About', command = about) 
+help_.add_command(label ='About', command = about.about_me) 
   
 # display Menu 
 root.config(menu = menubar) 
@@ -851,15 +787,9 @@ root.config(menu = menubar)
 
 data=StringVar()
 data.set(var)
-entry_1=Label(root,
-              textvariable = data,
-              font = ('verdana',22),
-              background = DBR,
-              anchor = 'se',
-              border = 0,
-              fg = DFR)
-entry_1.pack(expand = True,fill = 'both')
-frame_1=Frame(root,background = DBR)
+frame_x=Frame(root)
+frame_x.pack(side="top",expand=True,fill='both')
+frame_1=Frame(root)
 frame_1.pack(expand = True,fill = 'both')
 frame_2=Frame(root)
 frame_2.pack(expand = True,fill = 'both')
@@ -873,6 +803,19 @@ frame_6=Frame(root)
 frame_6.pack(expand = True,fill = 'both')
 frame_7=Frame(root)
 frame_7.pack(expand = True,fill = 'both')
+label_2=Label(frame_1,background=DBR)
+label_2.pack(expand = True,fill = 'both')
+label=Label(frame_x,background=DBR,text = hist,font = ('verdana',22),anchor = 'se')
+label.bind('<Button-1>',clicked_history)
+label.pack(expand = True,fill = 'both')
+entry_1=Label(frame_1,
+              textvariable = data,
+              font = ('verdana',22),
+              background = DBR,
+              anchor = 'se',
+              border = 0,
+              fg = DFR)
+entry_1.pack(expand = True,fill = 'both')
 button_1=Button(
     frame_2,
     command = lambda:clicked("1"),
