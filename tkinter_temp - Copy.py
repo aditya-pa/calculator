@@ -682,6 +682,12 @@ def pm():
     data.set(var)
 def delete():
     global var
+    if var[-1]==')':
+        for i,j in enumerate(var):
+            if j=='(':
+                var=var[:i]+var[i+1:]
+
+
     var=var[:-1]
     data.set(var)
 def c():
@@ -1089,7 +1095,6 @@ button_c=Button(
 button_c.pack(side = 'left',expand = True,fill = 'both')
 button_c.bind('<Enter>',enteredc)
 button_c.bind('<Leave>',leavec)
-
 root.mainloop()
 
     
