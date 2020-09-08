@@ -672,13 +672,13 @@ def pm():
     global var
     if len(var) == 0:
         var="(-0)"
-    elif var[0:2] == '(-' and var[-1] == ')':
+    elif var[0:2] == '-(' and var[-1] == ')':
         var=var[2:]
         var=var[:-1]
     elif var[0] == '-':
         var=var[1:]
     else:
-        var="(-" + var + ")"
+        var="-(" + var + ")"
     data.set(var)
 def delete():
     global var
