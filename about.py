@@ -11,14 +11,10 @@ def about_me():
     frame_2=Frame(r )
     frame_2.pack(expand = True,fill = 'both')
     Label(frame_0, text = 'Important link', font =('Verdana', 15)).pack(side = TOP, pady = 10)
-    #photo = PhotoImage(file = "l.png")
-    #photoimage = photo.subsample(3, 3)
-    #Button(r, text = 'Click Me !', image = photoimage,compound = LEFT,command=openlinkedin).pack(side = TOP)
     Button(frame_1, text = 'Linkedin', relief='groove',compound = LEFT,command=openlinkedin,font = ('verdana',22)).pack(side='left',expand=True,fill='both')
     Button(frame_2, text = 'Github',  relief='groove',compound = LEFT,command=github,font = ('verdana',22)).pack(side='left',expand=True,fill='both',)
     mainloop() 
   
-
 def openlinkedin():
     webbrowser.open('https://www.linkedin.com/in/aditya-pa/')
 def github():

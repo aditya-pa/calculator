@@ -4,11 +4,17 @@ import about
 root=tkinter.Tk()
 var=''
 hist=''
+photo1=PhotoImage(file = 'A2.png')
+p2=PhotoImage(file = 'mode.png')
+photo2 = p2.subsample(3,3)
+
+img1=photo1
+img2=photo2
 BR="#d3d3d3"
 FR="#000000"
 DBR="#FFFFFF"
 DFR="#000000"
-HBR="#4169E6"
+HBR="#849ae3"
 HFR="#ffffff"
 B=0
 flag=False
@@ -27,21 +33,23 @@ def change():
         FR="#000000"
         DBR="#FFFFFF"
         DFR="#000000"
-        HBR="#4169E6"
+        HBR="#2e395e"
         HFR="#ffffff"
         invert_colours()
         flag=False
     else:
         BR="#000000"
         FR="#696969"
-        DBR="#f5f5f5"
+        DBR="#383737"
         DFR="#808080"
-        HBR="#808080"
+        HBR="#c7c1c1"
         HFR="#ffffff"
         invert_colours()
         flag=True
 
 def invert_colours():
+    root.config(bg=DBR)
+    mainmenu1.config(background=DBR,activebackground=HBR)
     button_1.config(
     background = BR,
     fg = FR,
@@ -97,6 +105,12 @@ def invert_colours():
     button_photo.config(
     background = BR,
     fg = FR,
+    image=img1,
+    border=B)
+    button_photo2.config(
+    background = BR,
+    fg = FR,
+    image=img2,
     border=B)
     button_square.config(
     background = BR,
@@ -139,7 +153,9 @@ def invert_colours():
     label.config(
     background = DBR,
     fg = DFR,)
-    
+def destroy():
+    root.destroy()
+
 def entered1(event):
     button_1.config(
         background = HBR,
@@ -276,6 +292,12 @@ def enteredphoto(event):
 def leavephoto(event):
     button_photo.config(
         background = BR,)
+def enteredphoto2(event):
+    button_photo2.config(
+        background = HBR,)
+def leavephoto2(event):
+    button_photo2.config(
+        background = BR,)
 def enteredsquare(event):
     button_square.config(
         background = HBR,
@@ -343,8 +365,10 @@ def leavediv(event):
 def clicked1(v):
     global var
     if len(var) > 1:
-        if var[-1] == "." and v == '.':
+        if (var[-1] == "." or var[-1] == ")" or var[-1] == "*" or var[-1] == "-" or var[-1] == "/" or var[-1] == "+" or var[-1] == "**" or var[-1] == "**2" or var[-1] == "**0.5") and v == '.':
+            print("***")
             pass
+
 
         elif var[-1] == "+":
             if v == '-':
@@ -562,7 +586,7 @@ def clicked(v):
 
 
     elif len(var) > 1:
-        if var[-1] == "." and v == '.':
+        if (var[-1] == "." or var[-1] == ")" or var[-1] == "*" or var[-1] == "-" or var[-1] == "/" or var[-1] == "+" or var[-1] == "**" or var[-1] == "**2" or var[-1] == "**0.5") and v == '.':
             pass
         elif var[-1] == "+":
             if v == '-':
@@ -660,9 +684,6 @@ def clicked(v):
                 pass
             else:
                 var=var + v
-
-
-
         else:
             var=var + v
     else:
@@ -672,14 +693,12 @@ def pm():
     global var
     if len(var) == 0:
         var="(-0)"
-    elif var[0:2] == '-(' and var[-1] == ')':
+    elif (var[0:2] == '-(' or var [0:2]=='(-')and var[-1] == ')':
         var=var[2:]
         var=var[:-1]
-    elif var[0] == '-':
-        var=var[1:]
     else:
         var="-(" + var + ")"
-    data.set(var)
+    data.set(var)   
 def delete():
     global var
     if var[-1]==')':
@@ -692,8 +711,13 @@ def delete():
     data.set(var)
 def c():
     global var
-    var=""
-    data.set(var)
+    global hist
+    if var=='':
+        hist=''
+        label.config(text=hist)
+    else:
+        var=""
+        data.set(var)
 def solve():
     global var
     global hist
@@ -740,11 +764,12 @@ def clicked_history(event):
     hist=""
     label.config(text=hist)
     
-root.geometry("300x500")
+root.geometry("300x520")
 root.resizable(0,0)
 root.title("Calculator")
 icon=PhotoImage(file = "calculator.png")
 root.tk.call('wm','iconphoto',root._w,icon)
+root.config(bg=DBR)
 root.bind('0',click)
 root.bind('<Return>',enterpress)
 root.bind('1',click)
@@ -763,32 +788,19 @@ root.bind('-',click)
 root.bind('/',click)
 root.bind('<Delete>',deleteclick)
 root.bind('<BackSpace>',backspace)  
-menubar = Menu(root) 
-  
-# Adding File Menu and commands 
-file = Menu(menubar, tearoff = 0) 
-menubar.add_cascade(label ='File', menu = file) 
-file.add_command(label ='New File', command = None) 
-file.add_command(label ='Open...', command = None) 
-file.add_command(label ='Save', command = None) 
-file.add_separator() 
-file.add_command(label ='Exit', command = root.destroy) 
-  
-# Adding Edit Menu and commands 
-edit = Menu(menubar, tearoff = 0) 
-menubar.add_cascade(label ='Format', menu = edit)
-edit.add_command(label ='DAY/NIGHT MODE', command = change)
-edit.add_separator()
-edit.add_command(label ='Resize OR NOT', command = resize) 
-  
-# Adding Help Menu 
-help_ = Menu(menubar, tearoff = 0) 
-menubar.add_cascade(label ='Help', menu = help_) 
-help_.add_command(label ='About', command = about.about_me) 
-  
-# display Menu 
-root.config(menu = menubar) 
 
+
+imgvar1 = PhotoImage(file='menu.png')
+image = imgvar1.subsample(20,20)
+mainmenu1 = Menubutton(root, image=image ,background=DBR,activebackground=HBR)
+mainmenu1.pack(expand=False,fill=None,anchor=S+W,)
+submenu1 = Menu(mainmenu1,tearoff = 0,)
+mainmenu1.config(menu=submenu1,)
+submenu1.add_command(label="DAY/NIGHT",command=change)
+submenu1.add_command(label="RESIZE or NOT",command=resize)
+submenu1.add_command(label="About",command=about.about_me)
+submenu1.add_separator()
+submenu1.add_command(label="Quit",command=destroy)
 
 
 data=StringVar()
@@ -1006,14 +1018,14 @@ button_square=Button(
 button_square.pack(side = 'left',expand = True,fill = 'both')
 button_square.bind('<Enter>',enteredsquare)
 button_square.bind('<Leave>',leavesquare)
-photo=PhotoImage(file = 'A2.png')
+
 button_photo=Button(
     frame_6,
     border = B,
     background = BR,
     fg = FR,
     command = delete,
-    image = photo,
+    image = img1,
     
     relief = 'groove',
     font = ('verdana',22),
@@ -1079,10 +1091,24 @@ button_e=Button(
     background = BR,
     fg = FR,
     relief = 'groove',
-    width = 11)
+    width = 7)
 button_e.pack(side = 'left',expand = True,fill = 'both')
 button_e.bind('<Enter>',enterede)
 button_e.bind('<Leave>',leavee)
+button_photo2=Button(
+    frame_7,
+    border = B,
+    background = BR,
+    fg = FR,
+    command = change,
+    image = img2,
+    relief = 'groove',
+    font = ('verdana',22),
+    width = 55)
+button_photo2.pack(side = 'left',expand = True,fill = 'both')
+button_photo2.bind('<Enter>',enteredphoto2)
+button_photo2.bind('<Leave>',leavephoto2)
+
 button_c=Button(
     frame_7,
     command = lambda:c(),
@@ -1091,7 +1117,7 @@ button_c=Button(
     background = BR,
     fg = FR,
     relief = 'groove',
-    font = ('verdana',26))
+    font = ('verdana',28))
 button_c.pack(side = 'left',expand = True,fill = 'both')
 button_c.bind('<Enter>',enteredc)
 button_c.bind('<Leave>',leavec)
