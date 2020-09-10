@@ -791,7 +791,7 @@ root.bind('<BackSpace>',backspace)
 
 
 imgvar1 = PhotoImage(file='menu.png')
-image = imgvar1.subsample(20,20)
+image = imgvar1.subsample(15,20)
 mainmenu1 = Menubutton(root, image=image ,background=DBR,activebackground=HBR)
 mainmenu1.pack(expand=False,fill=None,anchor=S+W,)
 submenu1 = Menu(mainmenu1,tearoff = 0,)
