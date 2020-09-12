@@ -6,7 +6,7 @@ var=''
 hist=''
 photo1=PhotoImage(file = 'A2.png')
 p2=PhotoImage(file = 'mode.png')
-photo2 = p2.subsample(3,3)
+photo2 = p2.subsample(4,4)
 
 img1=photo1
 img2=photo2
@@ -16,6 +16,7 @@ DBR="#FFFFFF"
 DFR="#000000"
 HBR="#849ae3"
 HFR="#ffffff"
+sub="#ffffff"
 B=0
 flag=False
 f=True
@@ -39,7 +40,7 @@ def change():
         flag=False
     else:
         BR="#000000"
-        FR="#696969"
+        FR="#b5b3b3"
         DBR="#383737"
         DFR="#808080"
         HBR="#c7c1c1"
@@ -49,7 +50,7 @@ def change():
 
 def invert_colours():
     root.config(bg=DBR)
-    mainmenu1.config(background=DBR,activebackground=HBR)
+    mainmenu1.config(background=DBR,activebackground=HBR)    
     button_1.config(
     background = BR,
     fg = FR,
@@ -366,7 +367,6 @@ def clicked1(v):
     global var
     if len(var) > 1:
         if (var[-1] == "." or var[-1] == ")" or var[-1] == "*" or var[-1] == "-" or var[-1] == "/" or var[-1] == "+" or var[-1] == "**" or var[-1] == "**2" or var[-1] == "**0.5") and v == '.':
-            print("***")
             pass
 
 
@@ -701,23 +701,30 @@ def pm():
     data.set(var)   
 def delete():
     global var
-    if var[-1]==')':
-        for i,j in enumerate(var):
-            if j=='(':
-                var=var[:i]+var[i+1:]
+    try:
+        if var[-1]==')':
+            for i,j in enumerate(var):
+                if j=='(':
+                    var=var[:i]+var[i+1:]
 
 
-    var=var[:-1]
-    data.set(var)
+        var=var[:-1]
+        data.set(var)
+    except:
+        pass
+        
 def c():
     global var
     global hist
-    if var=='':
-        hist=''
-        label.config(text=hist)
-    else:
-        var=""
-        data.set(var)
+    try:
+        if var=='':
+            hist=''
+            label.config(text=hist)
+        else:
+            var=""
+            data.set(var)
+    except:
+        pass
 def solve():
     global var
     global hist
@@ -794,7 +801,7 @@ imgvar1 = PhotoImage(file='menu.png')
 image = imgvar1.subsample(15,20)
 mainmenu1 = Menubutton(root, image=image ,background=DBR,activebackground=HBR)
 mainmenu1.pack(expand=False,fill=None,anchor=S+W,)
-submenu1 = Menu(mainmenu1,tearoff = 0,)
+submenu1 = Menu(mainmenu1,tearoff = 0)
 mainmenu1.config(menu=submenu1,)
 submenu1.add_command(label="DAY/NIGHT",command=change)
 submenu1.add_command(label="RESIZE or NOT",command=resize)
