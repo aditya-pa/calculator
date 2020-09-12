@@ -34,7 +34,7 @@ def change():
         FR="#000000"
         DBR="#FFFFFF"
         DFR="#000000"
-        HBR="#2e395e"
+        HBR="#849ae3"
         HFR="#ffffff"
         invert_colours()
         flag=False
@@ -50,7 +50,9 @@ def change():
 
 def invert_colours():
     root.config(bg=DBR)
-    mainmenu1.config(background=DBR,activebackground=HBR)    
+    mainmenu1.config(background=DBR,activebackground=HBR) 
+    submenu1.config(background=DBR,foreground=FR, activebackground=HBR,activeforeground=HFR)   
+     
     button_1.config(
     background = BR,
     fg = FR,
@@ -801,7 +803,8 @@ imgvar1 = PhotoImage(file='menu.png')
 image = imgvar1.subsample(15,20)
 mainmenu1 = Menubutton(root, image=image ,background=DBR,activebackground=HBR)
 mainmenu1.pack(expand=False,fill=None,anchor=S+W,)
-submenu1 = Menu(mainmenu1,tearoff = 0)
+submenu1 = Menu(mainmenu1,tearoff = 0,background=DBR,
+foreground=FR, activebackground=HBR,activeforeground=HFR)
 mainmenu1.config(menu=submenu1,)
 submenu1.add_command(label="DAY/NIGHT",command=change)
 submenu1.add_command(label="RESIZE or NOT",command=resize)
